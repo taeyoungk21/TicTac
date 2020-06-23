@@ -12,10 +12,14 @@ public class Game {
         player2Turn = false; //Starts w/player 1 turn and alternates
         gameBoard = new Board(3);
 
-
+        //Game loop
         while(!gameOver) {
             playGame();
         }
+
+        //Post-Game
+
+        System.out.println("Player " + playerWinner + " wins!");
 
     }
 
