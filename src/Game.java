@@ -149,7 +149,29 @@ public class Game {
             prevDigit = disBoard[i][i];
         }
 
-        //Check for left diagonal win con
+        //Check for left diagonal win con if right diagonal hasn't won
+        if(!diagonalWin) {
+            int j = 0;
+            prevDigit = disBoard[disBoard.length-1][j];
+            for(int i = disBoard.length - 1; i >= 0; i--) {
+                if(Character.isLetter(prevDigit) && prevDigit == disBoard[i][j]) {
+                    diagonalWin = true;
+                } else {
+                    //Otherwise this diagonal is invalid
+                    diagonalWin = false;
+                    i = 0;
+                }
+                prevDigit = disBoard[i][j];
+                j++;
+            }
+
+        }
+
+        //TODO: Remove debugger
+        if(diagonalWin) {
+            System.out.println("Diagonal win");
+        }
+
 
 
 
