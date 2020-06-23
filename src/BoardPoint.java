@@ -14,6 +14,14 @@ public class BoardPoint {
         yCoordinate = yCor;
     }
 
+    public int getX() {
+        return xCoordinate;
+    }
+
+    public int getY() {
+        return yCoordinate;
+    }
+
 
 
 }

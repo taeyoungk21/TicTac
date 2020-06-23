@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class Game {
     private boolean gameOver;
     private boolean player2Turn;
+    private int playerWinner;
     private Board gameBoard;
     private Scanner in;
     //Constructor
@@ -53,19 +54,93 @@ public class Game {
         gameBoard.markBoard(newPoint, player);
 
 
-        //Now change players for next rotation
-        if(!player2Turn) {
-            player2Turn = true;
-        } else {
-            player2Turn = false;
-        }
+
 
         checkForWin();
+
+        //If somebody won, the current player's turn is the winner
+        playerWinner = player;
+
+
+
+        //Now change players for next rotation IF the game isn't over
+        if(!gameOver) {
+            if(!player2Turn) {
+                player2Turn = true;
+            } else {
+                player2Turn = false;
+            }
+        }
+
     }
 
     public void checkForWin() {
         //A win is if you fill up a row, fill up a column, or fill up a diagonal
+        boolean rowWin = false; //Default false unless have all same in row
+        boolean columnWin = false;
+        boolean diagonalWin = false;
 
+        char[][] disBoard  = gameBoard.getBoard(); //disBoard references our 2d array
+
+        //TODO: Remove debugger statement
+        System.out.println("State of array");
+        for(int i = 0; i < disBoard.length; i++) {
+            for(int j = 0; j < disBoard[i].length; j++) {
+                System.out.print(disBoard[i][j] + " " );
+            }
+            System.out.println();
+        }
+
+        //Check for row win con
+        for(int i = 0; i < disBoard.length; i++) {
+            char prevDigit = disBoard[i][0];
+            for(int j = 0; j < disBoard[i].length; j++) {
+                //Each entry in row must equal the previous
+                if(Character.isLetter(prevDigit) && prevDigit == disBoard[i][j]) {
+                    rowWin = true;
+                } else {
+                    //Otherwise, this row is invalid
+                    rowWin = false;
+                    j = disBoard[i].length - 1;
+                }
+                prevDigit = disBoard[i][j];
+            }
+            //We do not need to check other rows if we already have a row win
+            if(rowWin) {
+                System.out.println("Row win");
+                break;
+            }
+        }
+
+        //Check for column win con
+        for(int j = 0; j < disBoard[0].length; j++) {
+            char prevDigit = disBoard[0][j];
+            for(int i = 0; i < disBoard.length; i++) {
+                //Each entry in column must equal the previous
+                if(Character.isLetter(prevDigit) && prevDigit == disBoard[i][j]) {
+                    columnWin = true;
+                } else {
+                    //Otherwise, this column is invalid
+                    columnWin = false;
+                    i = disBoard.length - 1;
+                }
+                prevDigit = disBoard[i][j];
+            }
+            //We do not need to check other columns if we already have a column win
+            if(columnWin) {
+                System.out.println("Column win");
+                break;
+            }
+        }
+
+
+
+
+
+        //If any of win conditions hold, the game ends
+        if(rowWin || columnWin || diagonalWin) {
+            gameOver = true;
+        }
     }
 
 }

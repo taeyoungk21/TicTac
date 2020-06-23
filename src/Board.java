@@ -10,8 +10,10 @@ public class Board {
     public void markBoard(BoardPoint input, int player) {
         if(player == 1) {
             //Mark with X
+            board[input.getY()][input.getX()] = 'X';
         } else {
             //Mark with O
+            board[input.getY()][input.getX()] = 'O';
         }
     }
 
