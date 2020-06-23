@@ -82,6 +82,9 @@ public class Game {
 
         char[][] disBoard  = gameBoard.getBoard(); //disBoard references our 2d array
 
+        //TODO: In order to speed up runtime, only check for a win if all the other conditions
+        //have not been met
+
         //TODO: Remove debugger statement
         System.out.println("State of array");
         for(int i = 0; i < disBoard.length; i++) {
@@ -132,6 +135,24 @@ public class Game {
                 break;
             }
         }
+
+        //Check for right diagonal win con
+        char prevDigit = disBoard[0][0];
+        for(int i = 0; i < disBoard.length; i++) {
+            if(Character.isLetter(prevDigit) && prevDigit == disBoard[i][i]) {
+                diagonalWin = true;
+            } else {
+                //Otherwise, this diagonal is invalid
+                diagonalWin = false;
+                i = disBoard.length - 1;
+            }
+            prevDigit = disBoard[i][i];
+        }
+
+        //Check for left diagonal win con
+
+
+
 
 
 
